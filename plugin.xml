@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	<name>
+		<lang name="default">Plugin Prof</lang>
+		<lang name="russian">Профессии в профиле</lang>
+	</name>
+	<author>
+		<lang name="default">extravert (support@lsmods.ru) </lang>
+	</author>
+	<homepage>http://lsmods.ru</homepage>
+	<version>1.0</version>
+	<requires>
+		<livestreet>0.4.2</livestreet>
+		<plugins></plugins>
+	</requires>
+	<description>
+		<lang name="default">User professions in profile</lang>
+		<lang name="russian">Позволяет заполнять поле профессии в профиле. Выводит общий блок тегов профессиий.</lang>
+	</description>
+</plugin>
