@@ -14,7 +14,7 @@ class PluginProf_ModuleProf extends ModuleORM {
     /**
      * Объект маппера
      *
-     * @var ModuleProf_MapperProf
+     * @var PluginProf_ModuleProf_MapperProf
      */
     protected $oMapper;
 
