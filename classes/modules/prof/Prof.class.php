@@ -9,55 +9,83 @@
 ---------------------------------------------------------
 */
 
- 
 class PluginProf_ModuleProf extends ModuleORM {
 
+    /**
+     * Объект маппера
+     *
+     * @var ModuleComment_MapperComment
+     */
+    protected $oMapper;
 
-        /**
+    /**
+     * Инициализация
+     *
+     */
+    public function Init()
+    {
+        $this->oMapper = Engine::GetMapper(__CLASS__);
+    }
+
+    /**
 	 * Привязывает профессию к пользователю
 	 *
-	 * @param unknown_type $sProfId
-	 * @param unknown_type $sUserId
-	 * @return unknown
+     * @param int $sProfId
+     * @param int $sUserId
+     * @return bool
 	 */
 	public function SetProfUser($sProfId,$sUserId) {
-                $oMapper=Engine::GetMapper(__CLASS__);
-		return $oMapper->SetProfUser($sProfId,$sUserId);
-	}
-        
+        return $this->oMapper->SetProfUser($sProfId, $sUserId);
+    }
 
-        public function GetUsersProf($sLimit) {
-                $oMapper=Engine::GetMapper(__CLASS__);
-		return $oMapper->GetUsersProf($sLimit);
-	}
+    /**
+     * Получить список юзеров с лимитом
+     *
+     * @param int $sLimit
+     * @return array
+     */
+    public function GetUsersProf($sLimit)
+    {
+        return $this->oMapper->GetUsersProf($sLimit);
+    }
 
-        /**
+    /**
 	 * Получить спиок юзеров по профессии
 	 *
-	 * @param unknown_type $sProf
-	 * @param unknown_type $iCurrPage
-	 * @param unknown_type $iPerPage
-	 * @return unknown
+     * @param string $sProf
+     * @param int $iPage
+     * @param int $iPerPage
+     * @return array
 	 */
 	public function GetUsersByProf($sProf,$iPage,$iPerPage) {
-                if (false === ($data = $this->Cache_Get("user_prof_{$sProf}_{$iPage}_{$iPerPage}"))) {
-                        $oMapper=Engine::GetMapper(__CLASS__);
-			$data = array('collection'=>$oMapper->GetUsersByProf($sProf,$iCount,$iPage,$iPerPage),'count'=>$iCount);
-			$this->Cache_Set($data, "user_prof_{$sProf}_{$iPage}_{$iPerPage}", array("user_update"), 60*60*24*2);
+        $sCacheKey = "user_prof_{$sProf}_{$iPage}_{$iPerPage}";
+        if (false === ($data = $this->Cache_Get($sCacheKey))) {
+            $data = array('collection' => $this->oMapper->GetUsersByProf($sProf, $iCount, $iPage, $iPerPage), 'count' => $iCount);
+            $this->Cache_Set($data, $sCacheKey, array("user_update"), 60 * 60 * 24 * 2);
 		}
 		$data['collection']=$this->User_GetUsersAdditionalData($data['collection']);
 		return $data;
 	}
 
-        public function GetProfsByArrayId($aUserId) {
-            $oMapper=Engine::GetMapper(__CLASS__);
-            return $oMapper->GetProfsByArrayId($aUserId);
-        }
+    /**
+     * Получить спиосок профессий по массиву user_id пользователей
+     *
+     * @param array $aUserId
+     * @return array
+     */
+    public function GetProfsByArrayId($aUserId)
+    {
+        return $this->oMapper->GetProfsByArrayId($aUserId);
+    }
 
-        public function GetProfByName($sName) {
-                $oMapper=Engine::GetMapper(__CLASS__);
-		return $oMapper->GetProfByName($sName);
+    /**
+     * Получить объект профессии по названию
+     *
+     * @param string $sName
+     * @return object
+     */
+    public function GetProfByName($sName)
+    {
+        return $this->oMapper->GetProfByName($sName);
 	}
-
 }
-	
