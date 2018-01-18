@@ -22,8 +22,8 @@ class PluginProf_ModuleProf extends ModuleORM {
      * Инициализация
      *
      */
-    public function Init()
-    {
+    public function Init() {
+        parent::Init();
         $this->oMapper = Engine::GetMapper(__CLASS__);
     }
 
@@ -44,8 +44,7 @@ class PluginProf_ModuleProf extends ModuleORM {
      * @param int $sLimit
      * @return array
      */
-    public function GetUsersProf($sLimit)
-    {
+    public function GetUsersProf($sLimit) {
         return $this->oMapper->GetUsersProf($sLimit);
     }
 
@@ -73,8 +72,7 @@ class PluginProf_ModuleProf extends ModuleORM {
      * @param array $aUserId
      * @return array
      */
-    public function GetProfsByArrayId($aUserId)
-    {
+    public function GetProfsByArrayId($aUserId) {
         return $this->oMapper->GetProfsByArrayId($aUserId);
     }
 
@@ -84,8 +82,7 @@ class PluginProf_ModuleProf extends ModuleORM {
      * @param string $sName
      * @return object
      */
-    public function GetProfByName($sName)
-    {
+    public function GetProfByName($sName) {
         return $this->oMapper->GetProfByName($sName);
 	}
 }
